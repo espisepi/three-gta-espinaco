@@ -7,6 +7,9 @@ import { Resource } from '../engine/Resources'
 export class Demo implements Experience {
   resources: Resource[] = []
 
+  // En vez de meshes, crear IUpdatable como en Sketchbook y en Box.ts hacemos un implements IUpdatable
+  meshes: THREE.Mesh[] = []
+
   constructor(private engine: Engine) {}
 
   init() {
@@ -33,9 +36,17 @@ export class Demo implements Experience {
     box.position.set(0, 0.5, 0)
 
     this.engine.scene.add(box)
+
+    this.meshes.push(box)
   }
 
   resize() {}
 
-  update() {}
+  update() {
+    this.meshes.forEach((mesh) => {
+      if (mesh.userData.update) {
+        mesh.userData.update()
+      }
+    })
+  }
 }

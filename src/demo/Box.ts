@@ -11,5 +11,12 @@ export class Box extends THREE.Mesh {
     })
 
     super(geometry, material)
+
+    // Importante para anadir update
+    this.userData.update = this.update
+  }
+
+  update(): void {
+    // console.log('update box!')
   }
 }
